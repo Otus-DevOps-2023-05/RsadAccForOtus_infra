@@ -5,7 +5,7 @@ RsadAccForOtus Infra repository
 
 ### Деплой тестового приложения
 Данные для проверки:
-testapp_IP = 84.201.172.184
+testapp_IP = 51.250.91.118
 testapp_port = 9292
 
 ### Дополнительное задание
