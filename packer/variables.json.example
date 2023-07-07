@@ -1,6 +1,6 @@
 {
     "SERVICE_ACCOUNT_KEY_FILE" : "key.json",
     "SOURCE_IMAGE_FAMILY": "image_family",
-    "FOLDER_ID": "my-folder-id",
-    "SSH_USERNAME": "user-for-ssh-connecting",
+    "FOLDER_ID": "b1g2gpjol2jd7qeosnkl",
+    "SSH_USERNAME": "ubuntu",
 }
