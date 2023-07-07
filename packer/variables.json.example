@@ -3,6 +3,4 @@
     "SOURCE_IMAGE_FAMILY": "image_family",
     "FOLDER_ID": "my-folder-id",
     "SSH_USERNAME": "user-for-ssh-connecting",
-    "ZONE": "zone"
-    "HOME_DIRECTORY": "/home/appuser"
 }
