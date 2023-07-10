@@ -1,0 +1,44 @@
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "/home/rsad/UsefulFiles/iam-key-for-yc.json",
+            "folder_id": "b1g2gpjol2jd7qeosnkl",
+            "use_ipv4_nat": true,
+            "source_image_family": "ubuntu-1604-lts" ,
+            "image_name": "reddit-full-{{timestamp}}",
+            "image_family": "reddit-full",
+            "ssh_username": "ubuntu",
+            "platform_id": "standard-v1"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/install_mongodb.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "files/puma.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "file",
+            "source": "files/puma.service",
+            "destination": "/tmp/puma.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+              "sudo mv /tmp/puma.service /etc/systemd/system/puma.service",
+              "sudo systemctl daemon-reload && sudo systemctl enable puma && sudo systemctl start puma"
+            ]
+        }
+    ]
+}
