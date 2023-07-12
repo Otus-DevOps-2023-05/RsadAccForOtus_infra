@@ -10,13 +10,14 @@ terraform {
 
 provider "yandex" {
   service_account_key_file = var.service_account_key_file
-  cloud_id                 = "b1g8h0kt95ag6kffqpun"
-  folder_id                = "b1g2gpjol2jd7qeosnkl"
-  zone                     = "ru-central1-a"
+  cloud_id                 = var.cloud_id
+  folder_id                = var.folder_id
+  zone                     = var.zone
 }
 
 resource "yandex_compute_instance" "app" {
-  name = "reddit-app"
+  name  = "reddit-app-${count.index}"
+  count = var.servers_count
 
   metadata = {
     ssh-keys = "ubuntu:${file(var.public_key_path)}"
@@ -25,6 +26,7 @@ resource "yandex_compute_instance" "app" {
   resources {
     cores  = 2
     memory = 2
+    core_fraction = 20
   }
 
   boot_disk {
@@ -42,7 +44,7 @@ resource "yandex_compute_instance" "app" {
 
   connection {
     type  = "ssh"
-    host  = yandex_compute_instance.app.network_interface.0.nat_ip_address
+    host  = self.network_interface.0.nat_ip_address
     user  = "ubuntu"
     agent = false
     # путь до приватного ключа
